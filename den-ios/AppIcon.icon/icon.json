@@ -8,7 +8,15 @@
         {
           "fill-specializations" : [
             {
-              "value" : "automatic"
+              "value" : {
+                "solid" : "display-p3:0.00000,0.00000,0.00000,1.00000"
+              }
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "srgb:1.00000,1.00000,1.00000,1.00000"
+              }
             },
             {
               "appearance" : "tinted",
@@ -20,10 +28,10 @@
           "image-name" : "Gemini_Generated_Image_t9cbqat9cbqat9cb.png",
           "name" : "Gemini_Generated_Image_t9cbqat9cbqat9cb",
           "position" : {
-            "scale" : 0.5,
+            "scale" : 0.575,
             "translation-in-points" : [
               0,
-              0
+              -10
             ]
           }
         }

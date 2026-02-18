@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
 
+    @State private var localMode: Bool = Config.shared.localMode
     @State private var serverURL: String = Config.shared.serverURL
     @State private var authToken: String = Config.shared.authToken
     @State private var resumeTimeout: TimeInterval = Config.shared.resumeTimeoutSeconds
@@ -19,8 +20,11 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                serverSection
-                authSection
+                modeSection
+                if !localMode {
+                    serverSection
+                    authSection
+                }
                 resumeSection
                 appearanceSection
                 infoSection
@@ -37,6 +41,20 @@ struct SettingsView: View {
                     .foregroundStyle(DenTheme.accent)
                 }
             }
+        }
+    }
+
+    @ViewBuilder
+    private var modeSection: some View {
+        Section {
+            Toggle("Local Mode", isOn: $localMode)
+                .tint(DenTheme.accent)
+        } header: {
+            Text("Storage")
+        } footer: {
+            Text(localMode
+                 ? "Notes are stored on this device only."
+                 : "Notes sync with your Den server.")
         }
     }
 
@@ -142,6 +160,7 @@ struct SettingsView: View {
     }
 
     private func saveSettings() {
+        Config.shared.localMode = localMode
         Config.shared.serverURL = serverURL
         Config.shared.authToken = authToken
         Config.shared.resumeTimeoutSeconds = resumeTimeout

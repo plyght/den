@@ -17,15 +17,15 @@ struct NoteListView: View {
             .padding(.bottom, 24)
         }
         .navigationTitle("Den")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     showingSettings = true
                 } label: {
                     Image(systemName: "gear")
-                        .font(.system(size: 17, weight: .medium))
-                        .foregroundStyle(.secondary)
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(DenTheme.accent)
                 }
             }
         }

@@ -17,6 +17,8 @@ final class SyncEngine {
     private var wsListenTask: Task<Void, Never>?
     private var debounceTask: Task<Void, Never>?
 
+    private var isLocal: Bool { Config.shared.localMode }
+
     init(api: APIClient = .shared, store: LocalStore = LocalStore(), wsClient: WebSocketClient = WebSocketClient()) {
         self.api = api
         self.store = store
@@ -53,6 +55,11 @@ final class SyncEngine {
             notes = sorted(cached)
         }
 
+        if isLocal {
+            isLoading = false
+            return
+        }
+
         await refresh()
         startWebSocket()
     }
@@ -68,6 +75,13 @@ final class SyncEngine {
     func refresh() async {
         isLoading = true
         error = nil
+
+        if isLocal {
+            notes = sorted(await store.load())
+            isLoading = false
+            return
+        }
+
         do {
             let response = try await api.listNotes()
             notes = sorted(response.notes)
@@ -80,6 +94,12 @@ final class SyncEngine {
 
     @discardableResult
     func createNote(content: String) async throws -> Note {
+        if isLocal {
+            let note = await store.createNote(content: content)
+            notes = sorted(notes + [note])
+            return note
+        }
+
         let note = try await api.createNote(content: content)
         notes = sorted(notes + [note])
         await store.save(notes: notes)
@@ -92,6 +112,16 @@ final class SyncEngine {
         let previous = notes[idx]
         notes[idx] = note
         notes = sorted(notes)
+
+        if isLocal {
+            debounceTask?.cancel()
+            debounceTask = Task {
+                try? await Task.sleep(for: .milliseconds(300))
+                guard !Task.isCancelled else { return }
+                await self.store.updateNote(note)
+            }
+            return
+        }
 
         debounceTask?.cancel()
         debounceTask = Task {
@@ -124,6 +154,11 @@ final class SyncEngine {
         let previous = notes
         notes.removeAll { $0.id == id }
         if selectedNoteId == id { selectedNoteId = nil }
+
+        if isLocal {
+            await store.deleteNote(id: id)
+            return
+        }
 
         do {
             try await api.deleteNote(id: id)

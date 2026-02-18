@@ -8,6 +8,7 @@ final class Config: @unchecked Sendable {
     private enum Keys {
         static let serverURL = "den.serverURL"
         static let authToken = "den.authToken"
+        static let localMode = "den.localMode"
         static let lastActiveNoteId = "den.lastActiveNoteId"
         static let lastActiveTimestamp = "den.lastActiveTimestamp"
         static let resumeTimeoutSeconds = "den.resumeTimeoutSeconds"
@@ -21,6 +22,11 @@ final class Config: @unchecked Sendable {
     var authToken: String {
         get { defaults.string(forKey: Keys.authToken) ?? "" }
         set { defaults.set(newValue, forKey: Keys.authToken) }
+    }
+
+    var localMode: Bool {
+        get { defaults.bool(forKey: Keys.localMode) }
+        set { defaults.set(newValue, forKey: Keys.localMode) }
     }
 
     var lastActiveNoteId: String? {

@@ -49,7 +49,7 @@ struct SearchView: View {
                     .foregroundStyle(DenTheme.accent)
                 }
             }
-            .searchable(text: $query, isPresented: $searchFocused, prompt: "Search notes")
+            .searchable(text: $query, prompt: "Search notes")
             .onAppear {
                 searchFocused = true
                 withAnimation(DenTheme.springGentle) {
@@ -118,7 +118,7 @@ struct SearchView: View {
     private var resultsView: some View {
         ScrollView {
             LazyVStack(spacing: DenTheme.listSpacing) {
-                ForEach(Array(filteredNotes.enumerated()), id: \.element.id) { index, note in
+                ForEach(filteredNotes) { note in
                     NavigationLink(value: note.id) {
                         NoteRowView(note: note, appeared: true)
                     }
@@ -141,7 +141,7 @@ struct SearchView: View {
                 .font(.system(size: 44, weight: .thin))
                 .foregroundStyle(.tertiary)
 
-            Text("No results for "\(query)"")
+            Text("No results for \"\(query)\"")
                 .font(DenTheme.bodyFont)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)

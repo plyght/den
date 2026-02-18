@@ -8,8 +8,8 @@ struct NoteEditorView: UIViewControllerRepresentable {
   func makeUIViewController(context: Context) -> EditorViewController {
     let vc = EditorViewController()
     vc.content = content
-    vc.onContentChange = { [weak context] newContent in
-      guard let coordinator = context?.coordinator else { return }
+    let coordinator = context.coordinator
+    vc.onContentChange = { newContent in
       coordinator.handleContentChange(newContent)
     }
     return vc

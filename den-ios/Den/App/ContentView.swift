@@ -5,6 +5,9 @@ struct ContentView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
+    @State private var navigationPath = NavigationPath()
+    @State private var columnVisibility = NavigationSplitViewVisibility.all
+
     var body: some View {
         Group {
             if horizontalSizeClass == .regular {
@@ -16,22 +19,41 @@ struct ContentView: View {
         .onChange(of: scenePhase) { _, phase in
             handleScenePhase(phase)
         }
+        .onChange(of: syncEngine.selectedNoteId) { _, newId in
+            guard let newId else { return }
+            if horizontalSizeClass != .regular {
+                if !navigationPath.isEmpty {
+                    navigationPath = NavigationPath()
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    navigationPath.append(newId)
+                }
+            }
+        }
+        .task {
+            resumeIfNeeded()
+        }
     }
 
     // MARK: - iPad
 
     private var iPadLayout: some View {
-        NavigationSplitView {
+        @Bindable var sync = syncEngine
+        return NavigationSplitView(columnVisibility: $columnVisibility) {
             NoteListView()
         } detail: {
-            detailView
+            if let noteId = sync.selectedNoteId {
+                NoteDetailView(noteId: noteId)
+            } else {
+                emptyDetail
+            }
         }
     }
 
     // MARK: - iPhone
 
     private var iPhoneLayout: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath) {
             NoteListView()
                 .navigationDestination(for: String.self) { noteId in
                     NoteDetailView(noteId: noteId)
@@ -39,41 +61,31 @@ struct ContentView: View {
         }
     }
 
-    // MARK: - Detail
-
-    @ViewBuilder
-    private var detailView: some View {
-        if let noteId = resolvedInitialNoteId() {
-            NoteDetailView(noteId: noteId)
-        } else {
-            emptyDetail
-        }
-    }
+    // MARK: - Empty Detail
 
     private var emptyDetail: some View {
-        Text("Select a note")
-            .foregroundStyle(.secondary)
+        VStack(spacing: 12) {
+            Image(systemName: "note.text")
+                .font(.system(size: 48, weight: .ultraLight))
+                .foregroundStyle(.tertiary)
+            Text("Select a note")
+                .font(.system(size: 17))
+                .foregroundStyle(.secondary)
+        }
     }
 
     // MARK: - Resume Logic
 
-    private func resolvedInitialNoteId() -> String? {
+    private func resumeIfNeeded() {
         let config = Config.shared
-
-        if let noteId = syncEngine.selectedNoteId {
-            return noteId
-        }
-
-        guard
-            let lastId = config.lastActiveNoteId,
-            let lastTimestamp = config.lastActiveTimestamp
-        else { return nil }
+        guard syncEngine.selectedNoteId == nil else { return }
+        guard let lastId = config.lastActiveNoteId,
+              let lastTimestamp = config.lastActiveTimestamp else { return }
 
         let elapsed = Date().timeIntervalSince(lastTimestamp)
-        guard elapsed < config.resumeTimeoutSeconds else { return nil }
-        guard syncEngine.notes.contains(where: { $0.id == lastId }) else { return nil }
+        guard elapsed < config.resumeTimeoutSeconds else { return }
 
-        return lastId
+        syncEngine.selectedNoteId = lastId
     }
 
     // MARK: - Scene Phase

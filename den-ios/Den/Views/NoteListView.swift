@@ -146,8 +146,9 @@ struct NoteListView: View {
             }
         }
         .onAppear {
-            withAnimation(DenTheme.springSnappy.delay(Double(sync.notes.firstIndex(where: { $0.id == note.id }) ?? 0) * 0.04)) {
-                appearedNoteIds.insert(note.id)
+            let delay = Double(sync.notes.firstIndex(where: { $0.id == note.id }) ?? 0) * 0.04
+            withAnimation(DenTheme.springSnappy.delay(delay)) {
+                _ = appearedNoteIds.insert(note.id)
             }
         }
     }
@@ -177,7 +178,7 @@ struct NoteListView: View {
                 .font(.system(size: 40, weight: .thin))
                 .foregroundStyle(.tertiary)
 
-            Text("No results for "\(sync.searchQuery)"")
+            Text("No results for \"\(sync.searchQuery)\"")
                 .font(DenTheme.bodyFont)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)

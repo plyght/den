@@ -19,10 +19,9 @@ actor WebSocketClient: NSObject {
 
     private lazy var session: URLSession = {
         let config = URLSessionConfiguration.default
-        config.shouldUseExtendedBackgroundIdleMode = true
         config.timeoutIntervalForRequest = 30
         config.timeoutIntervalForResource = 300
-        config.waitsForConnectivity = false
+        config.waitsForConnectivity = true
         config.networkServiceType = .responsiveData
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 1

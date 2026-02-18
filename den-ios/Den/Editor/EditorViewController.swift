@@ -117,11 +117,14 @@ extension EditorViewController: UITextViewDelegate {
 
   func textView(
     _ textView: UITextView,
-    shouldInteractWith URL: URL,
-    in characterRange: NSRange,
-    interaction: UITextItemInteraction
-  ) -> Bool {
-    UIApplication.shared.open(URL)
-    return false
+    primaryActionFor textItem: UITextItem,
+    defaultAction: UIAction
+  ) -> UIAction? {
+    if case .link(let url) = textItem.content {
+      return UIAction(title: "") { _ in
+        UIApplication.shared.open(url)
+      }
+    }
+    return defaultAction
   }
 }

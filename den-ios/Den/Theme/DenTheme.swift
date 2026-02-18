@@ -92,32 +92,32 @@ enum DenTheme {
 
     // MARK: - Animations
 
-    static let springSnappy: Animation = .spring(mass: 1.0, stiffness: 300, damping: 28)
-    static let springBouncy: Animation = .spring(mass: 1.0, stiffness: 200, damping: 18)
-    static let springGentle: Animation = .spring(mass: 1.0, stiffness: 150, damping: 22)
-    static let springFast: Animation = .spring(mass: 0.8, stiffness: 350, damping: 30)
+    static let springSnappy: Animation = .spring(duration: 0.4, bounce: 0.15)
+    static let springBouncy: Animation = .spring(duration: 0.5, bounce: 0.3)
+    static let springGentle: Animation = .spring(duration: 0.6, bounce: 0.2)
+    static let springFast: Animation = .spring(duration: 0.3, bounce: 0.1)
 
     static let springAnimation: Animation = springSnappy
 
     // MARK: - Haptics
 
-    static func hapticLight() {
+    @MainActor static func hapticLight() {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
 
-    static func hapticMedium() {
+    @MainActor static func hapticMedium() {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
 
-    static func hapticHeavy() {
+    @MainActor static func hapticHeavy() {
         UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
     }
 
-    static func hapticSuccess() {
+    @MainActor static func hapticSuccess() {
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
 
-    static func hapticWarning() {
+    @MainActor static func hapticWarning() {
         UINotificationFeedbackGenerator().notificationOccurred(.warning)
     }
 

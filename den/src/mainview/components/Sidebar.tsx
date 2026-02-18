@@ -36,11 +36,10 @@ export function Sidebar({
         <div className="sidebar__brand">
           <span className="sidebar__brand-icon">◈</span>
           <span className="sidebar__brand-name">Den</span>
-          {!serverOnline && (
-            <span className="sidebar__offline" title="Server unreachable">
-              ●
-            </span>
-          )}
+          <span
+            className={`sidebar__status-dot ${serverOnline ? "sidebar__status-dot--online" : "sidebar__status-dot--offline"}`}
+            title={serverOnline ? "Server connected" : "Server unreachable"}
+          />
         </div>
       </div>
 

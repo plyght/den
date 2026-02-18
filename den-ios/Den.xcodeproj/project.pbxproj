@@ -24,11 +24,11 @@
 		B2ACCB7CCE770013905F0BF4 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD4E912730D78218954B7A3 /* Config.swift */; };
 		BE4FA9CC45806C21C552BA95 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2F21AC82CAC82396AF4C4C /* APIClient.swift */; };
 		CFB976D832FA1D98E33CAACA /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F6BEB6DCAF5B6FF56C6CC1 /* SearchView.swift */; };
+		DC89394E2F465D6C00C895C7 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = DC89394D2F465D6C00C895C7 /* AppIcon.icon */; };
 		EE79977138A54B049CC1C9DF /* NoteEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21439B3ED2B10CEFCFACF821 /* NoteEditorView.swift */; };
 		F393326C511B9719F084C192 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16701112F098BEEDBA555E2E /* Note.swift */; };
 		F6F2AE543F9A36899EE02929 /* DenTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98BBE9969E99F852DB9D332 /* DenTheme.swift */; };
 		F8188470A70DB32B15CDB89B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17BA071E8C8AB61BB9FA42BA /* Assets.xcassets */; };
-		FA1C0E26D3E4B5F6A7081923 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = FA1C0E27D3E4B5F6A7081924 /* AppIcon.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,8 +53,8 @@
 		D5C20C72F61CF45DBAD0BCBD /* NoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListView.swift; sourceTree = "<group>"; };
 		D86B6287D2A45AAF7C7C430B /* GlassToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassToolbar.swift; sourceTree = "<group>"; };
 		DA2F21AC82CAC82396AF4C4C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		DC89394D2F465D6C00C895C7 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		F5288318B5405BEB7DB9A23B /* NoteRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRowView.swift; sourceTree = "<group>"; };
-		FA1C0E27D3E4B5F6A7081924 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppIcon.icon; path = Icons/AppIcon.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -93,7 +93,6 @@
 				3AC4F60CCB567D10663C1E18 /* Components */,
 				D5CD43638AD9410918A6A3AE /* Core */,
 				F12C7B75633D608F71A48800 /* Editor */,
-				FA1C0E27D3E4B5F6A7081924 /* AppIcon.icon */,
 				C5F8BFEFF08A14D4D6599083 /* Resources */,
 				2665CD10610CB74C6DBBBD54 /* Theme */,
 				07B652C7EC9D45A7FF176136 /* Views */,
@@ -129,6 +128,7 @@
 		5A21595B09A191560130BACD /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				DC89394D2F465D6C00C895C7 /* AppIcon.icon */,
 				8E9940552CC38D2C9FAF48F3 /* Den.app */,
 			);
 			name = Products;
@@ -250,7 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8188470A70DB32B15CDB89B /* Assets.xcassets in Resources */,
-				FA1C0E26D3E4B5F6A7081923 /* AppIcon.icon in Resources */,
+				DC89394E2F465D6C00C895C7 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

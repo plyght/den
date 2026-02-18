@@ -1,0 +1,58 @@
+# dependencies
+node_modules/
+
+# build output
+out/
+dist/
+*.tgz
+build/
+
+# bun
+*.tsbuildinfo
+
+# sqlite databases
+*.db
+*.db-wal
+*.db-shm
+
+# env
+.env
+.env.*
+!.env.example
+
+# os
+.DS_Store
+Thumbs.db
+
+# editors
+.idea/
+.vscode/
+.cursor/
+*.swp
+*.swo
+*~
+
+# coverage
+coverage/
+*.lcov
+
+# logs
+logs/
+*.log
+
+# electrobun
+den/build/
+
+# xcode (ios app)
+DerivedData/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+*.app
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# go (tui)
+tui/tui

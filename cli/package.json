@@ -1,0 +1,19 @@
+{
+  "name": "den-cli",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "den": "src/index.ts"
+  },
+  "scripts": {
+    "dev": "bun run src/index.ts",
+    "typecheck": "bun x tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

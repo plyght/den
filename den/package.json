@@ -1,0 +1,25 @@
+{
+  "name": "den",
+  "version": "1.0.0",
+  "description": "Den — a personal notes app",
+  "scripts": {
+    "dev": "electrobun dev",
+    "build": "electrobun build",
+    "start": "bun run build && bun run dev"
+  },
+  "dependencies": {
+    "electrobun": "1.12.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@blocknote/core": "^0.27.1",
+    "@blocknote/react": "^0.27.1",
+    "@blocknote/mantine": "^0.27.1",
+    "@mantine/core": "^7.15.0",
+    "@mantine/hooks": "^7.15.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
+  }
+}
